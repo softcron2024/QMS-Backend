@@ -15,7 +15,7 @@ router.post("/create", verify, createUser);
 router.get("/get-users", verify, getUsers)
 router.post("/scan-token", verify, getUser)
 router.post("/setTokenActivity", verify, settokenactivity)
-router.get("/getQueue", enqueuetoken)
+router.get("/getQueue", verify, enqueuetoken)
 
 // admin routes
 
