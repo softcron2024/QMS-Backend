@@ -1,11 +1,13 @@
 const mysql = require("mysql2");
 const cron = require('node-cron');
 
+require("dotenv").config()
+
 const Connection = mysql.createConnection({
-  host: "103.108.220.238",
-  user: "qms_dbuser",
-  password: "Svhj11_74",
-  database: "softnew_qms",
+  host: process.env.SQL_HOST,
+  user: process.env.SQL_USER,
+  password: process.env.SQL_PASSWORD,
+  database: process.env.SQL_DATABASE,
 });
 
 // const Connection = mysql.createConnection({

@@ -73,9 +73,11 @@ async function handleLogin(req, res) {
 
                     res
                         .cookie('token', token, {
+                            path: '/',
+                            domain: 'localhost',
                             httpOnly: true, // Prevents client-side scripts from accessing the cookie
                             secure: process.env.NODE_ENV === 'production', // Ensures the cookie is only sent over HTTPS in production
-                            maxAge: 24 * 15 * 60 * 1000, // 15 minutes
+                            maxAge: 24 * 15 * 60 * 1000, // 1 day minutes
                             sameSite: 'Strict', // Ensures the cookie is only sent in first-party context
                         });
 
