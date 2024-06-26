@@ -8,13 +8,13 @@ require("dotenv").config()
 async function handleLogin(req, res) {
     const { username, password } = req.body;
 
-    if (!username) {
+    if (!username || username.trim() === "") {
         return res
             .status(404)
-            .json({ message: "Username or Email is required" })
+            .json({ message: "Username is required" })
     }
 
-    if (!password) {
+    if (!password || password.trim() === "") {
         return res
             .status(404)
             .json({ message: "Password is required" })
@@ -75,7 +75,7 @@ async function handleLogin(req, res) {
                         .cookie('token', token, {
                             path: '/',
                             domain: 'localhost',
-                            httpOnly: true, // Prevents client-side scripts from accessing the cookie
+                            // httpsOnly: true, // Prevents client-side scripts from accessing the cookie
                             secure: process.env.NODE_ENV === 'production', // Ensures the cookie is only sent over HTTPS in production
                             maxAge: 24 * 15 * 60 * 1000, // 1 day minutes
                             sameSite: 'Strict', // Ensures the cookie is only sent in first-party context

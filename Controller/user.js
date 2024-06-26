@@ -44,10 +44,9 @@ const createUser = asyncHandler(async function (req, res) {
         }
         console.log(response);
         return res.status(200).json({
-          id: result[0][0].insertId,
+          id: result[0][0].count_value,
           name,
           mobile,
-          no_of_person,
           qr_b64,
           token_no: result[1][0].SPtoken_no,
           no_of_person: result[4][0].no_of_person
