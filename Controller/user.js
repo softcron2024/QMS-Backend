@@ -49,7 +49,8 @@ const createUser = asyncHandler(async function (req, res) {
           mobile,
           qr_b64,
           token_no: result[1][0].SPtoken_no,
-          no_of_person: result[4][0].no_of_person
+          no_of_person: result[4][0].no_of_person,
+          created_datetime:result[4][0].created_datetime
         });
       })
     }
