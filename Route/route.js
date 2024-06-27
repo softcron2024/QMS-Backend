@@ -12,7 +12,7 @@ const verify = require("../Middleware/verify.js");
 // Customer routes
 
 router.post("/generate-token", verify, createUser);
-router.get("/get-users", verify, getUsers)
+router.get("/get-today-tokens", verify, getUsers)
 router.post("/scan-token", verify, getUser)
 router.post("/setTokenActivity", verify, settokenactivity)
 router.get("/getQueue", verify, enqueuetoken)
