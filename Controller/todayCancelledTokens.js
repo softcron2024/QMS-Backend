@@ -1,8 +1,8 @@
 const Connection = require('../Connection');
 const asyncHandler = require('../utils/asynchandler');
 
-const todayExpiredTokens = asyncHandler(async (req, res) => {
-    Connection.query("CALL SPtodayexpiredtokens()", (error, results) => {
+const todayCancelledTokens = asyncHandler(async (req, res) => {
+    Connection.query("CALL SPtodaycancelledtokens()", (error, results) => {
         if (error) {
             console.log(error);
             return res.status(500).json({ message: "Error getting tokens, Try Again!!!" });
@@ -11,4 +11,4 @@ const todayExpiredTokens = asyncHandler(async (req, res) => {
     });
 })
 
-module.exports = { todayExpiredTokens }
+module.exports = { todayCancelledTokens }
