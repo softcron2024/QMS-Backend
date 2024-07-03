@@ -13,7 +13,6 @@ const { weeklyReport } = require("../Reporting/weeklyReport.js");
 const { lastWeekReport } = require("../Reporting/lastWeekReport.js");
 const { thisMonthReport } = require("../Reporting/thiMonthReport.js");
 const { thisYearReport } = require("../Reporting/thisYearReport.js");
-const { todayCancelledTokens } = require("../Controller/todayCancelledTokens.js");
 const { cancelToken } = require("../Controller/cancelToken.js");
 
 // Customer routes
@@ -23,7 +22,6 @@ router.get("/get-today-tokens", verify, getUsers)
 router.post("/scan-token", verify, getUser)
 router.post("/setTokenActivity", verify, settokenactivity)
 router.get("/getQueue", verify, enqueuetoken)
-router.get("/get-today-cancelled-tokens", verify, todayCancelledTokens)
 router.post("/cancel-token", verify, cancelToken)
 
 // Reporting routes
