@@ -2,10 +2,6 @@ const Connection = require("../Connection");
 const asyncHandler = require("../utils/asynchandler");
 
 const enqueuetoken = asyncHandler(async (req, res) => {
-
-    const cookie = req.cookies
-    console.log(cookie);
-
     Connection.query("CALL SPenqueuetokens()", (error, results) => {
         if (error) {
             console.log(error);

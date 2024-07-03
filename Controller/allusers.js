@@ -11,8 +11,6 @@ const getUsers = asyncHandler(async (req, res) => {
             return res.status(500).json({ message: "Error fetching tokens!" })
         }
 
-        console.log(response[0]);
-
         return res
             .status(200)
             .json(response[0])

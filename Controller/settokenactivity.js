@@ -18,16 +18,9 @@ const settokenactivity = asyncHandler(async (req, res) => {
             return res.status(404).json({ message: "Token not found or inactive" });
         }
 
-        console.log(result.length);
-
-        console.log(result);
-
         // Assuming activity_status is stored as a TINYINT(1) or similar
         const currentActivityStatus = result[0][0].activity_status.readUInt8(0); // Convert buffer to integer
         const newActivityStatus = currentActivityStatus === 1 ? 0 : 1; // Toggle activity status
-
-        console.log("Current Activity Status:", currentActivityStatus);
-        console.log("New Activity Status:", newActivityStatus);
 
         Connection.query(
             "CALL SPsettokenactivity(?,?)",
@@ -37,8 +30,6 @@ const settokenactivity = asyncHandler(async (req, res) => {
                     console.log(error);
                     return res.status(500).json({ message: "Failed to update activity status" });
                 }
-
-                console.log(response);
                 return res
                     .status(200)
                     .json({

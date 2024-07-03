@@ -37,24 +37,16 @@ async function handleLogin(req, res) {
                     .json({ message: "Invalid username" })
             }
 
-            console.log(results);
-
             const user = results[0][0];
-
-            console.log(user);
 
             if (user.username) {
                 const passwordMatch = await bcrypt.compare(password, user?.password);
-
-                console.log(passwordMatch);
 
                 if (!passwordMatch) {
                     return res
                         .status(401)
                         .json({ message: "Check your password" })
                 }
-
-                console.log(passwordMatch);
 
                 // Call the stored procedure
                 const query = "CALL SPadminlogin(?,?)";
