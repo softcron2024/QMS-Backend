@@ -26,23 +26,14 @@ const createUser = asyncHandler(async function (req, res) {
       // Sending SMS notification
       // await sendsms(name, mobile);
 
-      console.log(result);
-
-      console.log(result[1][0].SPtoken_no);
-
       const token_no = `${result[1][0].SPtoken_no}`
 
       const qr_b64 = await generateQRCode(token_no)
-
-      // console.log(result[4][0].tokenInsertId);
-
-
 
       Connection.query("CALL SPstoreqrwithtoken(?, ?)", [qr_b64, result[4][0].tokenInsertId], (err, response) => {
         if (err) {
           return res.status(500).json({ message: "Error storing QRcode" })
         }
-        console.log(response);
         return res.status(200).json({
           id: result[0][0].count_value,
           name,

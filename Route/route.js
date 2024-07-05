@@ -14,6 +14,11 @@ const { lastWeekReport } = require("../Reporting/lastWeekReport.js");
 const { thisMonthReport } = require("../Reporting/thiMonthReport.js");
 const { thisYearReport } = require("../Reporting/thisYearReport.js");
 const { cancelToken } = require("../Controller/cancelToken.js");
+const { callNextToken } = require("../Controller/callnexttoken.js");
+const { moveBackCurrentToken } = require("../Controller/movebackcurrenttoken.js");
+const { missedTokens } = require("../Controller/missedTokenList.js");
+const { recallMissedToken } = require("../Controller/recallMissedToken.js");
+const { skipToken } = require("../Controller/skipToken.js");
 
 // Customer routes
 
@@ -23,6 +28,11 @@ router.post("/scan-token", verify, getUser)
 router.post("/setTokenActivity", verify, settokenactivity)
 router.get("/getQueue", verify, enqueuetoken)
 router.post("/cancel-token", verify, cancelToken)
+router.get("/call-next-token", verify, callNextToken)
+router.get("/move-back-current-token", verify, moveBackCurrentToken)
+router.get("/get-missed-tokens-list", verify, missedTokens)
+router.post("/recall-missed-token", verify, recallMissedToken)
+router.post("/skip-token", verify, skipToken)
 
 // Reporting routes
 
