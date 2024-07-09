@@ -19,6 +19,7 @@ const { moveBackCurrentToken } = require("../Controller/movebackcurrenttoken.js"
 const { missedTokens } = require("../Controller/missedTokenList.js");
 const { recallMissedToken } = require("../Controller/recallMissedToken.js");
 const { skipToken } = require("../Controller/skipToken.js");
+const { adjustTokenPosition } = require("../Controller/adjustTokenPosition.js");
 
 // Customer routes
 
@@ -33,6 +34,7 @@ router.get("/move-back-current-token", verify, moveBackCurrentToken)
 router.get("/get-missed-tokens-list", verify, missedTokens)
 router.post("/recall-missed-token", verify, recallMissedToken)
 router.post("/skip-token", verify, skipToken)
+router.post("/adjust-token-position", verify, adjustTokenPosition)
 
 // Reporting routes
 

@@ -7,7 +7,7 @@ const callNextToken = asyncHandler(async (req, res) => {
             console.log(error);
             return res.status(500).json({ message: "Error calling next token, Try Again!!!" });
         }
-        return res.status(200).json({ message: results[0][0] })
+        return res.status(200).json({ message: results })
     });
 })
 
