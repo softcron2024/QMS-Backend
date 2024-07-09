@@ -5,6 +5,10 @@ const skipToken = asyncHandler(async (req, res) => {
 
     const { token_no } = req.body
 
+    if (!token_no) {
+        return res.status(404).json({message:"Token number is required"})
+    }
+
     Connection.query("CALL SPskiptoken(?)", [token_no], (error, results) => {
         if (error) {
             console.log(error);
