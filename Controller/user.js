@@ -8,7 +8,7 @@ require("dotenv").config()
 //#region Query to generate token
 
 const createUser = asyncHandler(async function (req, res) {
-  const { name, mobile, no_of_person, customer_type } = req.body;
+  const { name, mobile, no_of_person, customer_type_id } = req.body;
 
   if (!mobile) {
     return res.status(404).json({ message: "Mobile is required" });
@@ -16,7 +16,7 @@ const createUser = asyncHandler(async function (req, res) {
 
   Connection.query(
     "CALL SPcreatetoken(?, ?, ?, ?)",
-    [name, mobile, no_of_person, customer_type],
+    [name, mobile, no_of_person, customer_type_id],
     async (err, result) => {
       if (err) {
         console.log(err);
