@@ -20,6 +20,10 @@ const { missedTokens } = require("../Controller/missedTokenList.js");
 const { recallMissedToken } = require("../Controller/recallMissedToken.js");
 const { skipToken } = require("../Controller/skipToken.js");
 const { adjustTokenPosition } = require("../Controller/adjustTokenPosition.js");
+const { addCustomerType } = require("../Controller/addCustomerType.js");
+const { updateCustomerType } = require("../Controller/updateCustomerTypeName.js");
+const { deleteCustomerType } = require("../Controller/deleteCustomerType.js");
+const { getCustomerType } = require("../Controller/getCustomerType.js");
 
 // Customer routes
 
@@ -35,6 +39,10 @@ router.get("/get-missed-tokens-list", verify, missedTokens)
 router.post("/recall-missed-token", verify, recallMissedToken)
 router.post("/skip-token", verify, skipToken)
 router.post("/adjust-token-position", verify, adjustTokenPosition)
+router.post("/add-customer-type", verify, addCustomerType)
+router.post("/delete-customer-type", verify, deleteCustomerType)
+router.post("/update-customer-type", verify, updateCustomerType)
+router.get("/get-customer-type", verify, getCustomerType)
 
 // Reporting routes
 
