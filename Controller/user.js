@@ -8,15 +8,15 @@ require("dotenv").config()
 //#region Query to generate token
 
 const createUser = asyncHandler(async function (req, res) {
-  const { name, mobile, no_of_person } = req.body;
+  const { name, mobile, no_of_person, customer_type } = req.body;
 
   if (!mobile) {
     return res.status(404).json({ message: "Mobile is required" });
   }
 
   Connection.query(
-    "CALL SPcreatetoken(?, ?, ?)",
-    [name, mobile, no_of_person],
+    "CALL SPcreatetoken(?, ?, ?, ?)",
+    [name, mobile, no_of_person, customer_type],
     async (err, result) => {
       if (err) {
         console.log(err);
@@ -41,7 +41,7 @@ const createUser = asyncHandler(async function (req, res) {
           qr_b64,
           token_no: result[1][0].SPtoken_no,
           no_of_person: result[4][0].no_of_person,
-          created_datetime:result[4][0].created_datetime
+          created_datetime: result[4][0].created_datetime
         });
       })
     }
