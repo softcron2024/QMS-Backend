@@ -6,7 +6,7 @@ const asyncHandler = require("../utils/asynchandler");
 //#region Fetching all tokens here
 
 const getUsers = asyncHandler(async (req, res) => {
-    Connection.query("CALL SPgetallusers()", (err, response) => {
+    Connection.query("CALL SPgetalltodaytokens()", (err, response) => {
         if (err) {
             return res.status(500).json({ message: "Error fetching tokens!" })
         }
