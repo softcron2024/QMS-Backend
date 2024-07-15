@@ -14,7 +14,7 @@ const addCustomerType = asyncHandler(async (req, res) => {
             console.log(error);
             return res.status(500).json({ message: "Error adding new customer type, Try Again!!!" });
         }
-        return res.status(200).json({ResponseCode: 1, message: results[0][0] })
+        return res.status(200).json({ message: results[0][0] })
     });
 })
 
