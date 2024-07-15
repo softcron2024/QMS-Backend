@@ -5,6 +5,10 @@ const addCustomerType = asyncHandler(async (req, res) => {
 
     const { customer_type_name } = req.body
 
+    if (!customer_type_name) {
+        return res.status(404).json({ ResponseCode: 0, message: "Customer type name is required" })
+    }
+
     Connection.query("CALL SPinsertcustomertype(?)", [customer_type_name], (error, results) => {
         if (error) {
             console.log(error);
