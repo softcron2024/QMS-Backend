@@ -12,7 +12,7 @@ const adjustTokenPosition = asyncHandler(async (req, res) => {
     Connection.query("CALL SPmanagelivequeuedrop(?, ?)", [token_no, in_at], (error, results) => {
         if (error) {
             console.log(error);
-            return res.status(500).json({ message: "Error updating token position, Try Again!!!" });
+            return res.status(500).json({ ResponseCode: 0, message: "Error updating token position, Try Again!!!" });
         }
         return res.status(200).json({ message: results[0] })
     });

@@ -8,7 +8,7 @@ const createadmin = asyncHandler(async (req, res) => {
     if (!username || !password) {
         return res
             .status(404)
-            .json({ message: "Username, Email, Password all are required" })
+            .json({ ResponseCode: 0, message: "Username, Email, Password all are required" })
     }
 
     const saltRounds = 1; // You can adjust the cost factor
@@ -23,12 +23,14 @@ const createadmin = asyncHandler(async (req, res) => {
                 console.log(err);
                 return res.status(500)
                     .json({
+                        ResponseCode: 0,
                         message: err.message == "User with this username already exists" ? err.message : "Something went wrong, try again"
                     })
             }
 
             return res.status(200).json({
                 id: result[0][0]?.insertId,
+                ResponseCode: 1,
                 username,
                 password
             });

@@ -8,19 +8,19 @@ const getUser = asyncHandler(async (req, res) => {
 
     // check if token_no is provided
     if (!token_no) {
-        return res.status(404).json({ message: "Token no is required, try again" })
+        return res.status(404).json({ ResponseCode: 0, message: "Token no is required, try again" })
     }
 
     Connection.query("CALL SPscantoken(?)", [token_no], (err, response) => {
 
         if (err) {
             console.log(err);
-            return res.status(500).json({ message: "Token not found or Expired, Try again!" })
+            return res.status(500).json({ ResponseCode: 0, message: "Token not found or Expired, Try again!" })
         }
 
         return res
             .status(200)
-            .json({ message: "Your token is valid" })
+            .json({ ResponseCode: 1, message: "Your token is valid" })
     })
 })
 

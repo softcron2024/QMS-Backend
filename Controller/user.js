@@ -20,7 +20,7 @@ const createUser = asyncHandler(async function (req, res) {
     async (err, result) => {
       if (err) {
         console.log(err);
-        return res.status(500).json({ message: "Error generating token, Try Again!" });
+        return res.status(500).json({ ResponseCode: 0, message: "Error generating token, Try Again!" });
       }
 
       // Sending SMS notification
@@ -37,7 +37,7 @@ const createUser = asyncHandler(async function (req, res) {
 
         Connection.query("CALL SPstoreqrwithtoken(?, ?)", [qr_b64, result[0][0].tokenInsertId], (err, response) => {
           if (err) {
-            return res.status(500).json({ message: "Error storing QRcode" })
+            return res.status(500).json({ ResponseCode: 0, message: "Error storing QRcode" })
           }
           return res.status(200).json({
             id: result[0][0].count_value,

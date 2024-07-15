@@ -11,13 +11,13 @@ async function handleLogin(req, res) {
     if (!username || username.trim() === "") {
         return res
             .status(404)
-            .json({ message: "Username is required" })
+            .json({ ResponseCode: 0, message: "Username is required" })
     }
 
     if (!password || password.trim() === "") {
         return res
             .status(404)
-            .json({ message: "Password is required" })
+            .json({ ResponseCode: 0, message: "Password is required" })
     }
 
     // Query to retrieve the user's hashed password from the database
@@ -29,12 +29,12 @@ async function handleLogin(req, res) {
                 console.log(err);
                 return res
                     .status(500)
-                    .json({ message: err })
+                    .json({ ResponseCode: 0, message: err })
             }
             if (results[0][0].ResponseCode === 0) {
                 return res
                     .status(401)
-                    .json({ message: "Invalid username" })
+                    .json({ ResponseCode: 0, message: "Invalid username" })
             }
 
             const user = results[0][0];
@@ -45,7 +45,7 @@ async function handleLogin(req, res) {
                 if (!passwordMatch) {
                     return res
                         .status(401)
-                        .json({ message: "Check your password" })
+                        .json({ ResponseCode: 0, message: "Check your password" })
                 }
 
                 // Call the stored procedure
@@ -55,7 +55,7 @@ async function handleLogin(req, res) {
                         console.log(err);
                         return res
                             .status(500)
-                            .json({ message: "Error finding user, Try again" })
+                            .json({ ResponseCode: 0, message: "Error finding user, Try again" })
                     }
 
                     // Extract the message from the stored procedure's result
@@ -78,6 +78,7 @@ async function handleLogin(req, res) {
                     return res
                         .status(200)
                         .json({
+                            ResponseCode: 1,
                             message: "User logged in successfully",
                             username: user.username
                         })

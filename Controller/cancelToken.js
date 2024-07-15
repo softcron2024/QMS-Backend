@@ -6,13 +6,13 @@ const cancelToken = asyncHandler(async (req, res) => {
     const { token_no } = req.body
 
     if (!token_no) {
-        return res.status(404).json({message:"Token number is required"})
+        return res.status(404).json({ ResponseCode: 0, message: "Token number is required" })
     }
 
     Connection.query("CALL SPcanceltoken(?)", [token_no], (error, results) => {
         if (error) {
             console.log(error);
-            return res.status(500).json({ message: "Error cancelling token, Try Again!!!" });
+            return res.status(500).json({ ResponseCode: 0, message: "Error cancelling token, Try Again!!!" });
         }
         return res.status(200).json({ message: results[0][0] })
     });
