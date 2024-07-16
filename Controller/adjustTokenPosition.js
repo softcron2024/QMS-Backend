@@ -6,7 +6,7 @@ const adjustTokenPosition = asyncHandler(async (req, res) => {
     const { token_no, in_at } = req.body
 
     if (!token_no || !in_at) {
-        return res.status(404).json({ ResponseCode: 0, message: "Token number and queue position are required" })
+        return res.status(200).json({ ResponseCode: 0, message: "Token number and queue position are required" })
     }
 
     Connection.query("CALL SPmanagelivequeuedrop(?, ?)", [token_no, in_at], (error, results) => {

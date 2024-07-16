@@ -7,7 +7,7 @@ require("dotenv").config()
 
 //#region Query to generate token
 
-const createUser = asyncHandler(async function (req, res) {
+const createToken = asyncHandler(async function (req, res) {
   const { name, mobile, no_of_person, customer_type_id } = req.body;
 
   if (!mobile) {
@@ -54,6 +54,6 @@ const createUser = asyncHandler(async function (req, res) {
   );
 });
 
-module.exports = { createUser };
+module.exports = { createToken };
 
 //#endregion

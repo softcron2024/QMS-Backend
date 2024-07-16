@@ -15,7 +15,7 @@ const settokenactivity = asyncHandler(async (req, res) => {
         }
 
         if (result[0].length === 0) {
-            return res.status(404).json({ ResponseCode: 0, message: "Token not found or inactive" });
+            return res.status(200).json({ ResponseCode: 0, message: "Token not found or inactive" });
         }
 
         // Assuming activity_status is stored as a TINYINT(1) or similar

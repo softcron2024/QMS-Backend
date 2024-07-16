@@ -7,7 +7,7 @@ const createadmin = asyncHandler(async (req, res) => {
 
     if (!username || !password) {
         return res
-            .status(404)
+            .status(200)
             .json({ ResponseCode: 0, message: "Username, Email, Password all are required" })
     }
 

@@ -10,13 +10,13 @@ async function handleLogin(req, res) {
 
     if (!username || username.trim() === "") {
         return res
-            .status(404)
+            .status(200)
             .json({ ResponseCode: 0, message: "Username is required" })
     }
 
     if (!password || password.trim() === "") {
         return res
-            .status(404)
+            .status(200)
             .json({ ResponseCode: 0, message: "Password is required" })
     }
 
@@ -33,7 +33,7 @@ async function handleLogin(req, res) {
             }
             if (results[0][0].ResponseCode === 0) {
                 return res
-                    .status(401)
+                    .status(200)
                     .json({ ResponseCode: 0, message: "Invalid username" })
             }
 
@@ -44,7 +44,7 @@ async function handleLogin(req, res) {
 
                 if (!passwordMatch) {
                     return res
-                        .status(401)
+                        .status(200)
                         .json({ ResponseCode: 0, message: "Check your password" })
                 }
 

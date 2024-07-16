@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { createUser } = require("../Controller/user.js");
+const { createToken } = require("../Controller/createToken.js");
 const { getUsers } = require("../Controller/allusers.js");
 const { getUser } = require("../Controller/getuser.js");
 const { settokenactivity } = require("../Controller/settokenactivity.js");
@@ -27,7 +27,7 @@ const { getCustomerType } = require("../Controller/getCustomerType.js");
 
 // Customer routes
 
-router.post("/generate-token", verify, createUser);
+router.post("/generate-token", verify, createToken);
 router.get("/get-today-tokens", verify, getUsers)
 router.post("/scan-token", verify, getUser)
 router.post("/setTokenActivity", verify, settokenactivity)
