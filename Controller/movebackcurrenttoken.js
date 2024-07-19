@@ -10,7 +10,7 @@ const moveBackCurrentToken = asyncHandler(async (req, res) => {
             console.log(error);
             return res.status(500).json({ ResponseCode: 0, message: "Error moving token back, Try Again!!!" });
         }
-        return res.status(200).json({ message: results })
+        return res.status(200).json({ message: results[0][0] })
     });
 })
 
