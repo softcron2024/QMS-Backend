@@ -2,7 +2,7 @@ const Connection = require("../Connection");
 const asyncHandler = require("../utils/asynchandler");
 
 const enqueuetoken = asyncHandler(async (req, res) => {
-    Connection.query("CALL SPenqueuetokens()", (error, results) => {
+    Connection.query("CALL SPlivequeue()", (error, results) => {
         if (error) {
             console.log(error);
             return res.status(500).json({ ResponseCode: 0, message: "Error getting tokens, Try Again!!!" });
