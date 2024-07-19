@@ -2,7 +2,10 @@ const Connection = require("../Connection");
 const asyncHandler = require("../utils/asynchandler");
 
 const moveBackCurrentToken = asyncHandler(async (req, res) => {
-    Connection.query("CALL SPmovebackinprocesstoken()", (error, results) => {
+
+    const { token_no } = req.body
+
+    Connection.query("CALL SPmovebackinprocesstoken(?)", [token_no], (error, results) => {
         if (error) {
             console.log(error);
             return res.status(500).json({ ResponseCode: 0, message: "Error moving token back, Try Again!!!" });
