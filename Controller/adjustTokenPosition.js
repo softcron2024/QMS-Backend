@@ -4,6 +4,7 @@ const asyncHandler = require("../utils/asynchandler");
 const adjustTokenPosition = asyncHandler(async (req, res) => {
 
     const { token_no, in_at } = req.body
+    console.log(token_no, in_at);
 
     if (!token_no || !in_at) {
         return res.status(200).json({ ResponseCode: 0, message: "Token number and queue position are required" })

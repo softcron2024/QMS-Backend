@@ -5,7 +5,13 @@ const moveBackCurrentToken = asyncHandler(async (req, res) => {
 
     const { token_no } = req.body
 
+<<<<<<< HEAD
     console.log(token_no);
+=======
+    if (!token_no) {
+        return res.status(200).json({ ResponseCode: 0, message: "Token number is required" })
+    }
+>>>>>>> 71f504c6a5e812759d4f7b3955ee3550c36c1bc8
 
     Connection.query("CALL SPmovebackinprocesstoken(?)", [token_no], (error, results) => {
         if (error) {

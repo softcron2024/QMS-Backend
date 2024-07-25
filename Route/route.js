@@ -32,7 +32,6 @@ router.get("/get-today-tokens", verify, getUsers)
 router.get("/get-customer-type", getCustomerType)
 router.get("/call-next-token", verify, callNextToken)
 router.get("/get-missed-tokens-list", verify, missedTokens)
-router.get("/move-back-current-token", verify, moveBackCurrentToken)
 
 router.post("/generate-token", verify, createToken);
 router.post("/scan-token", verify, getUser)
@@ -40,10 +39,11 @@ router.post("/setTokenActivity", verify, settokenactivity)
 router.post("/cancel-token", verify, cancelToken)
 router.post("/recall-missed-token", verify, recallMissedToken)
 router.post("/skip-token", verify, skipToken)
-router.post("/adjust-token-position", verify, adjustTokenPosition)
+router.post("/adjust-token-position",  adjustTokenPosition)
 router.post("/add-customer-type", verify, addCustomerType)
 router.post("/delete-customer-type", verify, deleteCustomerType)
 router.post("/update-customer-type", verify, updateCustomerType)
+router.post("/move-back-current-token", verify, moveBackCurrentToken)
 
 // Reporting routes
 
