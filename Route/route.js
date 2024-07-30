@@ -14,6 +14,7 @@ const { todayReport } = require("../Reporting/todayreport.js");
 const { skipToken } = require("../Controller/skipToken.js");
 const { getUsers } = require("../Controller/allusers.js");
 const verify = require("../Middleware/verify.js");
+const {currentToken} = require("../Controller/currentToken.js")
 const { getUser } = require("../Controller/getuser.js");
 const { handleLogin } = require("../Controller/adminlogin.js");
 const { callNextToken } = require("../Controller/callnexttoken.js");
@@ -32,6 +33,7 @@ router.get("/get-today-tokens", verify, getUsers)
 router.get("/get-customer-type", getCustomerType)
 router.get("/call-next-token", verify, callNextToken)
 router.get("/get-missed-tokens-list", verify, missedTokens)
+router.get("/get-current-token", verify, currentToken)
 
 router.post("/generate-token", verify, createToken);
 router.post("/scan-token", verify, getUser)
