@@ -27,6 +27,8 @@ const { adjustTokenPosition } = require("../Controller/adjustTokenPosition.js");
 const { moveBackCurrentToken } = require("../Controller/movebackcurrenttoken.js");
 const { updateCustomerType } = require("../Controller/updateCustomerTypeName.js");
 const { waitingtoscan } = require("../Controller/waitingToScan.js");
+const { getWaitingToken } = require("../Controller/getWaitingToken.js");
+const { CompleteToken } = require("../Controller/completeToken.js");
 
 // Customer routes
 router.get("/getQueue",  enqueuetoken)
@@ -35,6 +37,7 @@ router.get("/get-customer-type", getCustomerType)
 router.get("/call-next-token", verify, callNextToken)
 router.get("/get-missed-tokens-list", verify, missedTokens)
 router.get("/get-current-token", verify, currentToken)
+router.get("/get-waiting-token",  getWaitingToken)
 
 
 router.post("/generate-token", verify, createToken);
@@ -49,6 +52,7 @@ router.post("/delete-customer-type", verify, deleteCustomerType)
 router.post("/update-customer-type", verify, updateCustomerType)
 router.post("/move-back-current-token", verify, moveBackCurrentToken)
 router.post("/waiting-to-scan", verify, waitingtoscan)
+router.post("/complete-token", verify, CompleteToken)
 
 // Reporting routes
 
