@@ -17,6 +17,10 @@ const getUser = asyncHandler(async (req, res) => {
             console.log(err);
             return res.status(500).json({ ResponseCode: 0, message: "Token not found or Expired, Try again!" })
         }
+        if (response[0][0].ResponseCode === 0) {
+            console.log(err);
+            return res.status(201).json({ ResponseCode: 0, message: response[0][0].ResponseMessage })
+        }
 
         return res
             .status(200)
