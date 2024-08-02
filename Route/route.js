@@ -34,10 +34,12 @@ const { CompleteToken } = require("../Controller/completeToken.js");
 router.get("/getQueue", verify, enqueuetoken)
 router.get("/get-today-tokens", verify, getUsers)
 router.get("/get-customer-type", getCustomerType)
+router.get("/complete-token", verify, CompleteToken)
+router.get("/waiting-to-scan", verify, waitingtoscan)
 router.get("/call-next-token", verify, callNextToken)
-router.get("/get-missed-tokens-list", verify, missedTokens)
 router.get("/get-current-token", verify, currentToken)
 router.get("/get-waiting-token", verify, getWaitingToken)
+router.get("/get-missed-tokens-list", verify, missedTokens)
 
 
 router.post("/generate-token", verify, createToken);
@@ -50,9 +52,6 @@ router.post("/adjust-token-position", verify, adjustTokenPosition)
 router.post("/add-customer-type", verify, addCustomerType)
 router.post("/delete-customer-type", verify, deleteCustomerType)
 router.post("/update-customer-type", verify, updateCustomerType)
-router.post("/move-back-current-token", verify, moveBackCurrentToken)
-router.post("/waiting-to-scan", verify, waitingtoscan)
-router.post("/complete-token", verify, CompleteToken)
 
 // Reporting routes
 
