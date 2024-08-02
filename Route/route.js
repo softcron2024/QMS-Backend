@@ -14,7 +14,7 @@ const { todayReport } = require("../Reporting/todayreport.js");
 const { skipToken } = require("../Controller/skipToken.js");
 const { getUsers } = require("../Controller/allusers.js");
 const verify = require("../Middleware/verify.js");
-const {currentToken} = require("../Controller/currentToken.js")
+const { currentToken } = require("../Controller/currentToken.js")
 const { getUser } = require("../Controller/getuser.js");
 const { handleLogin } = require("../Controller/adminlogin.js");
 const { callNextToken } = require("../Controller/callnexttoken.js");
@@ -31,22 +31,22 @@ const { getWaitingToken } = require("../Controller/getWaitingToken.js");
 const { CompleteToken } = require("../Controller/completeToken.js");
 
 // Customer routes
-router.get("/getQueue",  enqueuetoken)
+router.get("/getQueue", verify, enqueuetoken)
 router.get("/get-today-tokens", verify, getUsers)
 router.get("/get-customer-type", getCustomerType)
 router.get("/call-next-token", verify, callNextToken)
 router.get("/get-missed-tokens-list", verify, missedTokens)
 router.get("/get-current-token", verify, currentToken)
-router.get("/get-waiting-token",  getWaitingToken)
+router.get("/get-waiting-token", verify, getWaitingToken)
 
 
 router.post("/generate-token", verify, createToken);
-router.post("/scan-token",verify,  getUser)
+router.post("/scan-token", verify, getUser)
 router.post("/setTokenActivity", verify, settokenactivity)
 router.post("/cancel-token", verify, cancelToken)
 router.post("/recall-missed-token", verify, recallMissedToken)
 router.post("/skip-token", verify, skipToken)
-router.post("/adjust-token-position",  adjustTokenPosition)
+router.post("/adjust-token-position", verify, adjustTokenPosition)
 router.post("/add-customer-type", verify, addCustomerType)
 router.post("/delete-customer-type", verify, deleteCustomerType)
 router.post("/update-customer-type", verify, updateCustomerType)
