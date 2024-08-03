@@ -31,35 +31,35 @@ const { getWaitingToken } = require("../Controller/getWaitingToken.js");
 const { CompleteToken } = require("../Controller/completeToken.js");
 
 // Customer routes
-router.get("/getQueue", verify, enqueuetoken)
-router.get("/get-today-tokens", verify, getUsers)
+router.get("/getQueue", enqueuetoken)
+router.get("/get-today-tokens", getUsers)
 router.get("/get-customer-type", getCustomerType)
-router.get("/complete-token", verify, CompleteToken)
-router.get("/waiting-to-scan", verify, waitingtoscan)
-router.get("/call-next-token", verify, callNextToken)
-router.get("/get-current-token", verify, currentToken)
-router.get("/get-waiting-token", verify, getWaitingToken)
-router.get("/get-missed-tokens-list", verify, missedTokens)
+router.get("/complete-token", CompleteToken)
+router.get("/waiting-to-scan", waitingtoscan)
+router.get("/call-next-token", callNextToken)
+router.get("/get-current-token", currentToken)
+router.get("/get-waiting-token", getWaitingToken)
+router.get("/get-missed-tokens-list", missedTokens)
 
 
-router.post("/generate-token", verify, createToken);
-router.post("/scan-token", verify, getUser)
-router.post("/setTokenActivity", verify, settokenactivity)
-router.post("/cancel-token", verify, cancelToken)
-router.post("/recall-missed-token", verify, recallMissedToken)
-router.post("/skip-token", verify, skipToken)
-router.post("/adjust-token-position", verify, adjustTokenPosition)
-router.post("/add-customer-type", verify, addCustomerType)
-router.post("/delete-customer-type", verify, deleteCustomerType)
-router.post("/update-customer-type", verify, updateCustomerType)
+router.post("/generate-token", createToken);
+router.post("/scan-token", getUser)
+router.post("/setTokenActivity", settokenactivity)
+router.post("/cancel-token", cancelToken)
+router.post("/recall-missed-token", recallMissedToken)
+router.post("/skip-token", skipToken)
+router.post("/adjust-token-position", adjustTokenPosition)
+router.post("/add-customer-type", addCustomerType)
+router.post("/delete-customer-type", deleteCustomerType)
+router.post("/update-customer-type", updateCustomerType)
 
 // Reporting routes
 
-router.get("/get-today-report", verify, todayReport)
-router.get("/get-this-week-report", verify, weeklyReport)
-router.get("/get-last-week-report", verify, lastWeekReport)
-router.get("/get-this-month-report", verify, thisMonthReport)
-router.get("/get-this-year-report", verify, thisYearReport)
+router.get("/get-today-report", todayReport)
+router.get("/get-this-week-report", weeklyReport)
+router.get("/get-last-week-report", lastWeekReport)
+router.get("/get-this-month-report", thisMonthReport)
+router.get("/get-this-year-report", thisYearReport)
 
 // admin routes
 

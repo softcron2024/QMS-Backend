@@ -27,7 +27,7 @@ Connection.connect((err) => {
 
 cron.schedule('* * * * * *', () => {
   Connection.query('CALL SPexpiretoken()', (error, results, fields) => {
-    if (error) console.log(error);
+    // if (error) console.log(error);
   });
 });
 
