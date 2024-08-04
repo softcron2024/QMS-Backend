@@ -2,10 +2,12 @@ const express = require("express");
 const cors = require("cors");
 const router = require("./Route/route.js");
 const dotenv = require("dotenv");
-const cookieParser = require('cookie-parser');
+const cookieParser = require("cookie-parser");
+const swaggerUi = require("swagger-ui-express");
+const fs = require("fs");
 
 dotenv.config({
-  path: './.env'
+  path: "./.env",
 });
 
 const app = express();
@@ -22,7 +24,7 @@ const corsOptions = {
     if (corsOrigins.indexOf(origin) !== -1 || !origin) {
       callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'));
+      callback(new Error("Not allowed by CORS"));
     }
   },
   credentials: true,
@@ -32,7 +34,12 @@ app.use(cors(corsOptions));
 
 app.use("/api/v1", router);
 
+const swaggerDocument = JSON.parse(fs.readFileSync('./swagger.json', 'utf8'));
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 const PORT = 8000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
+  console.log(`Swagger UI available at http://localhost:${PORT}/api-docs`);
 });
