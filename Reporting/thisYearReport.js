@@ -71,7 +71,7 @@ const thisYearReport = asyncHandler(async (req, res) => {
 
             return res.status(500).json({ ResponseCode: responseCode, message });
         }
-        return res.status(200).json({ message: results[0] })
+        return res.status(200).json({ ResponseCode: 1, message: results[0] })
     });
 })
 

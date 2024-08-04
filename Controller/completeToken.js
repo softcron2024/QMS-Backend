@@ -2,7 +2,14 @@ const Connection = require("../Connection");
 const asyncHandler = require("../utils/asynchandler");
 
 const CompleteToken = asyncHandler(async (req, res) => {
-    Connection.query("CALL SPcompletetoken()", (error, results) => {
+
+    const { token_no } = req.body;
+
+    if (!token_no) {
+        return res.status(400).json({ ResponseCode: 0, message: "Token no is required, try again" });
+    }
+
+    Connection.query("CALL SPcompletetoken(?)", [token_no], (error, results) => {
         if (error) {
             let message = "Error completing token, Try Again!!!";
             let responseCode = 0;

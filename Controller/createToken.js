@@ -165,13 +165,16 @@ const createToken = asyncHandler(async function (req, res) {
           }
 
           return res.status(200).json({
-            id: result[0][0].count_value,
-            name,
-            mobile,
-            qr_b64,
-            token_no: result[0][0].SPtoken_no,
-            no_of_person: result[0][0].no_of_person,
-            created_datetime: result[0][0].created_datetime
+            message: {
+              id: result[0][0].count_value,
+              ResponseCode: 1,
+              name,
+              mobile,
+              qr_b64,
+              token_no: result[0][0].SPtoken_no,
+              no_of_person: result[0][0].no_of_person,
+              created_datetime: result[0][0].created_datetime
+            }
           });
         });
       }

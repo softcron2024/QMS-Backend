@@ -82,7 +82,7 @@ const getUsers = asyncHandler(async (req, res) => {
             return res.status(404).json({ ResponseCode: 0, message: "No tokens found." });
         }
 
-        return res.status(200).json(response[0]);
+        return res.status(200).json({ResponseCode: 1, message: response[0]});
     });
 });
 
