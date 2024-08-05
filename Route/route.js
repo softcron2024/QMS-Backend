@@ -7,7 +7,6 @@ const { lastWeekReport } = require("../Reporting/lastWeekReport.js");
 const { thisYearReport } = require("../Reporting/thisYearReport.js");
 const { enqueuetoken } = require("../Controller/enqueuetoken.js");
 const { weeklyReport } = require("../Reporting/weeklyReport.js");
-const { createadmin } = require("../Controller/createadmin.js");
 const { createToken } = require("../Controller/createToken.js");
 const { cancelToken } = require("../Controller/cancelToken.js");
 const { todayReport } = require("../Reporting/todayreport.js");
@@ -33,7 +32,8 @@ const { CompleteToken } = require("../Controller/completeToken.js");
 // Customer routes
 router.get("/getQueue", verify, enqueuetoken)
 router.get("/get-today-tokens", verify, getUsers)
-router.get("/get-customer-type", getCustomerType)
+router.get("/get-customer-type", verify, getCustomerType)
+router.post("/complete-token", verify, CompleteToken)
 router.get("/waiting-to-scan", verify, waitingtoscan)
 router.get("/call-next-token", verify, callNextToken)
 router.get("/get-current-token", verify, currentToken)
@@ -63,7 +63,6 @@ router.get("/get-this-year-report", verify, thisYearReport)
 
 // admin routes
 
-router.post("/create-admin", createadmin)
 router.post("/admin-login", handleLogin)
 
 

@@ -1,0 +1,722 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "Queue Management System API",
+        "description": "API for managing the live queue system (QMS), generating reports, and administering the system.",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "https://api.yourdomain.com"
+        }
+    ],
+    "paths": {
+        "/getQueue": {
+            "get": {
+                "summary": "Retrieves the live queue.",
+                "tags": [
+                    "Customer"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "ResponseCode": {
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "live_queue_id": {
+                                                        "type": "string"
+                                                    },
+                                                    "live_queue_position": {
+                                                        "type": "string"
+                                                    },
+                                                    "customer_name": {
+                                                        "type": "string"
+                                                    },
+                                                    "customer_mobile": {
+                                                        "type": "string"
+                                                    },
+                                                    "no_of_person": {
+                                                        "type": "string"
+                                                    },
+                                                    "token_no": {
+                                                        "type": "string"
+                                                    },
+                                                    "qr_b64": {
+                                                        "type": "string"
+                                                    },
+                                                    "customer_type_color": {
+                                                        "type": "string"
+                                                    },
+                                                    "customer_type_text_color": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "new_data_count": {
+                                            "type": "string"
+                                        },
+                                        "old_data_count": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/get-today-tokens": {
+            "get": {
+                "summary": "Retrieves tokens issued today including cancelled, missed, and all statuses.",
+                "tags": [
+                    "Customer"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "ResponseCode": {
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "token_no": {
+                                                        "type": "string"
+                                                    },
+                                                    "no_of_person": {
+                                                        "type": "string"
+                                                    },
+                                                    "qr_b64": {
+                                                        "type": "string"
+                                                    },
+                                                    "customer_name": {
+                                                        "type": "string"
+                                                    },
+                                                    "customer_mobile": {
+                                                        "type": "string"
+                                                    },
+                                                    "customer_type_color": {
+                                                        "type": "string"
+                                                    },
+                                                    "customer_type_name": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/get-customer-type": {
+            "get": {
+                "summary": "Retrieves the types of customers.",
+                "tags": [
+                    "Customer"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "ResponseCode": {
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "customer_type_id": {
+                                                        "type": "string"
+                                                    },
+                                                    "customer_type_name": {
+                                                        "type": "string"
+                                                    },
+                                                    "customer_type_color": {
+                                                        "type": "string"
+                                                    },
+                                                    "customer_type_text_color": {
+                                                        "type": "string"
+                                                    },
+                                                    "customer_type_priority": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/call-next-token": {
+            "get": {
+                "summary": "Calls the next token in the queue.",
+                "tags": [
+                    "Customer"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "live_queue_id": {
+                                            "type": "string"
+                                        },
+                                        "customer_name": {
+                                            "type": "string"
+                                        },
+                                        "customer_mobile": {
+                                            "type": "string"
+                                        },
+                                        "no_of_person": {
+                                            "type": "string"
+                                        },
+                                        "token_no": {
+                                            "type": "string"
+                                        },
+                                        "qr_b64": {
+                                            "type": "string"
+                                        },
+                                        "customer_type_color": {
+                                            "type": "string"
+                                        },
+                                        "customer_type_text_color": {
+                                            "type": "string"
+                                        },
+                                        "ResponseCode": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/get-missed-tokens-list": {
+            "get": {
+                "summary": "Retrieves a list of missed tokens.",
+                "tags": [
+                    "Customer"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "customer_name": {
+                                            "type": "string"
+                                        },
+                                        "customer_mobile": {
+                                            "type": "string"
+                                        },
+                                        "no_of_person": {
+                                            "type": "string"
+                                        },
+                                        "token_no": {
+                                            "type": "string"
+                                        },
+                                        "qr_b64": {
+                                            "type": "string"
+                                        },
+                                        "ResponseCode": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/get-current-token": {
+            "get": {
+                "summary": "Retrieves the current token being served.",
+                "tags": [
+                    "Customer"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "customer_name": {
+                                            "type": "string"
+                                        },
+                                        "customer_mobile": {
+                                            "type": "string"
+                                        },
+                                        "token_no": {
+                                            "type": "string"
+                                        },
+                                        "ResponseCode": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/get-waiting-token": {
+            "get": {
+                "summary": "Retrieves the next waiting token.",
+                "tags": [
+                    "Customer"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/generate-token": {
+            "post": {
+                "summary": "Generates a new token for a customer.",
+                "tags": [
+                    "Customer"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "mobile": {
+                                        "type": "string"
+                                    },
+                                    "no_of_person": {
+                                        "type": "integer"
+                                    },
+                                    "customer_type_id": {
+                                        "type": "integer"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "ResponseCode": {
+                                            "type": "string"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "mobile": {
+                                            "type": "string"
+                                        },
+                                        "qr_b64": {
+                                            "type": "string"
+                                        },
+                                        "token_no": {
+                                            "type": "string"
+                                        },
+                                        "customer_type_name": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/cancel-token": {
+            "post": {
+                "summary": "Cancels an existing token.",
+                "tags": [
+                    "Customer"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "live_queue_id": {
+                                        "type": "string"
+                                    },
+                                    "token_no": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "ResponseCode": {
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/check-customer-exist": {
+            "post": {
+                "summary": "Checks if a customer exists in the queue.",
+                "tags": [
+                    "Customer"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "mobile": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "ResponseCode": {
+                                            "type": "string"
+                                        },
+                                        "live_queue_id": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/add-token": {
+            "post": {
+                "summary": "Adds a token to the live queue.",
+                "tags": [
+                    "Customer"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "live_queue_id": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "ResponseCode": {
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/remove-token": {
+            "post": {
+                "summary": "Removes a token from the live queue.",
+                "tags": [
+                    "Customer"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "live_queue_id": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "ResponseCode": {
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/queue-sync": {
+            "post": {
+                "summary": "Synchronizes the live queue.",
+                "tags": [
+                    "Customer"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "auth_key": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "ResponseCode": {
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "live_queue_id": {
+                                                        "type": "string"
+                                                    },
+                                                    "live_queue_position": {
+                                                        "type": "string"
+                                                    },
+                                                    "customer_name": {
+                                                        "type": "string"
+                                                    },
+                                                    "customer_mobile": {
+                                                        "type": "string"
+                                                    },
+                                                    "no_of_person": {
+                                                        "type": "string"
+                                                    },
+                                                    "token_no": {
+                                                        "type": "string"
+                                                    },
+                                                    "qr_b64": {
+                                                        "type": "string"
+                                                    },
+                                                    "customer_type_color": {
+                                                        "type": "string"
+                                                    },
+                                                    "customer_type_text_color": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    }
+}
