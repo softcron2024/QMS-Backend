@@ -35,7 +35,7 @@ router.get("/get-customer-type", verify, getCustomerType)
 router.get("/call-token-to-scan", verify, waitingtoscan)
 router.get("/call-next-token", verify, callNextToken)
 router.get("/get-current-token", verify, currentToken)
-router.get("/get-waiting-token", verify, getWaitingToken)
+router.get("/get-waiting-to-scan-token", verify, getWaitingToken)
 router.get("/get-missed-tokens-list", verify, missedTokens)
 
 

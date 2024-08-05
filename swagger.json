@@ -384,7 +384,7 @@
                 }
             }
         },
-        "/get-waiting-token": {
+        "/get-waiting-to-scan-token": {
             "get": {
                 "summary": "Retrieves the next waiting token.",
                 "tags": [
