@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 
-const { settokenactivity } = require("../Controller/settokenactivity.js");
 const { thisMonthReport } = require("../Reporting/thiMonthReport.js");
 const { lastWeekReport } = require("../Reporting/lastWeekReport.js");
 const { thisYearReport } = require("../Reporting/thisYearReport.js");
@@ -33,8 +32,7 @@ const { CompleteToken } = require("../Controller/completeToken.js");
 router.get("/getQueue", verify, enqueuetoken)
 router.get("/get-today-tokens", verify, getUsers)
 router.get("/get-customer-type", verify, getCustomerType)
-router.post("/complete-token", verify, CompleteToken)
-router.get("/waiting-to-scan", verify, waitingtoscan)
+router.get("/call-token-to-scan",  waitingtoscan)
 router.get("/call-next-token", verify, callNextToken)
 router.get("/get-current-token", verify, currentToken)
 router.get("/get-waiting-token", verify, getWaitingToken)
@@ -43,7 +41,6 @@ router.get("/get-missed-tokens-list", verify, missedTokens)
 
 router.post("/generate-token", verify, createToken);
 router.post("/scan-token", verify, getUser)
-router.post("/setTokenActivity", verify, settokenactivity)
 router.post("/cancel-token", verify, cancelToken)
 router.post("/recall-missed-token", verify, recallMissedToken)
 router.post("/skip-token", verify, skipToken)

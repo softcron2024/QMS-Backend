@@ -7,7 +7,12 @@
     },
     "servers": [
         {
-            "url": "https://api.yourdomain.com"
+            "url": "http://localhost:8000/api/v1",
+            "description": "Local development server"
+        },
+        {
+            "url": "https://api.yourdomain.com",
+            "description": "Production server"
         }
     ],
     "paths": {
@@ -31,7 +36,7 @@
                                     "type": "object",
                                     "properties": {
                                         "ResponseCode": {
-                                            "type": "string"
+                                            "type": "integer"
                                         },
                                         "message": {
                                             "type": "array",
@@ -39,10 +44,10 @@
                                                 "type": "object",
                                                 "properties": {
                                                     "live_queue_id": {
-                                                        "type": "string"
+                                                        "type": "integer"
                                                     },
                                                     "live_queue_position": {
-                                                        "type": "string"
+                                                        "type": "integer"
                                                     },
                                                     "customer_name": {
                                                         "type": "string"
@@ -51,7 +56,7 @@
                                                         "type": "string"
                                                     },
                                                     "no_of_person": {
-                                                        "type": "string"
+                                                        "type": "integer"
                                                     },
                                                     "token_no": {
                                                         "type": "string"
@@ -69,10 +74,10 @@
                                             }
                                         },
                                         "new_data_count": {
-                                            "type": "string"
+                                            "type": "integer"
                                         },
                                         "old_data_count": {
-                                            "type": "string"
+                                            "type": "integer"
                                         }
                                     }
                                 }
@@ -102,7 +107,7 @@
                                     "type": "object",
                                     "properties": {
                                         "ResponseCode": {
-                                            "type": "string"
+                                            "type": "integer"
                                         },
                                         "message": {
                                             "type": "array",
@@ -161,7 +166,7 @@
                                     "type": "object",
                                     "properties": {
                                         "ResponseCode": {
-                                            "type": "string"
+                                            "type": "integer"
                                         },
                                         "message": {
                                             "type": "array",
@@ -194,6 +199,53 @@
                 }
             }
         },
+        "/call-token-to-scan": {
+            "get": {
+                "summary": "Call a token to scan which is in top of the queue.",
+                "tags": [
+                    "Customer"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "object",
+                                            "properties": {
+                                                "token_no": {
+                                                    "type": "string"
+                                                },
+                                                "customer_name": {
+                                                    "type": "string"
+                                                },
+                                                "customer_mobile": {
+                                                    "type": "string"
+                                                },
+                                                "ResponseCode": {
+                                                    "type": "string"
+                                                },
+                                                "customer_type_priority": {
+                                                    "type": "integer"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/call-next-token": {
             "get": {
                 "summary": "Calls the next token in the queue.",
@@ -214,7 +266,7 @@
                                     "type": "object",
                                     "properties": {
                                         "live_queue_id": {
-                                            "type": "string"
+                                            "type": "integer"
                                         },
                                         "customer_name": {
                                             "type": "string"
@@ -238,7 +290,7 @@
                                             "type": "string"
                                         },
                                         "ResponseCode": {
-                                            "type": "string"
+                                            "type": "integer"
                                         }
                                     }
                                 }
@@ -283,7 +335,7 @@
                                             "type": "string"
                                         },
                                         "ResponseCode": {
-                                            "type": "string"
+                                            "type": "integer"
                                         }
                                     }
                                 }
@@ -322,7 +374,7 @@
                                             "type": "string"
                                         },
                                         "ResponseCode": {
-                                            "type": "string"
+                                            "type": "integer"
                                         }
                                     }
                                 }
@@ -409,7 +461,7 @@
                                     "type": "object",
                                     "properties": {
                                         "ResponseCode": {
-                                            "type": "string"
+                                            "type": "integer"
                                         },
                                         "name": {
                                             "type": "string"
@@ -452,9 +504,6 @@
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "live_queue_id": {
-                                        "type": "string"
-                                    },
                                     "token_no": {
                                         "type": "string"
                                     }
@@ -472,7 +521,7 @@
                                     "type": "object",
                                     "properties": {
                                         "ResponseCode": {
-                                            "type": "string"
+                                            "type": "integer"
                                         },
                                         "message": {
                                             "type": "string"
@@ -485,9 +534,9 @@
                 }
             }
         },
-        "/check-customer-exist": {
+        "/recall-missed-token": {
             "post": {
-                "summary": "Checks if a customer exists in the queue.",
+                "summary": "Recalls a token from missed tokens on the position you want.",
                 "tags": [
                     "Customer"
                 ],
@@ -503,8 +552,11 @@
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "mobile": {
+                                    "token_no": {
                                         "type": "string"
+                                    },
+                                    "in_at": {
+                                        "type": "integer"
                                     }
                                 }
                             }
@@ -520,9 +572,9 @@
                                     "type": "object",
                                     "properties": {
                                         "ResponseCode": {
-                                            "type": "string"
+                                            "type": "integer"
                                         },
-                                        "live_queue_id": {
+                                        "ResponseMessage": {
                                             "type": "string"
                                         }
                                     }
@@ -533,55 +585,7 @@
                 }
             }
         },
-        "/add-token": {
-            "post": {
-                "summary": "Adds a token to the live queue.",
-                "tags": [
-                    "Customer"
-                ],
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "live_queue_id": {
-                                        "type": "string"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Successful response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "ResponseCode": {
-                                            "type": "string"
-                                        },
-                                        "message": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/remove-token": {
+        "/skip-token": {
             "post": {
                 "summary": "Removes a token from the live queue.",
                 "tags": [
@@ -599,7 +603,7 @@
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "live_queue_id": {
+                                    "token_no": {
                                         "type": "string"
                                     }
                                 }
@@ -616,9 +620,9 @@
                                     "type": "object",
                                     "properties": {
                                         "ResponseCode": {
-                                            "type": "string"
+                                            "type": "integer"
                                         },
-                                        "message": {
+                                        "ResponseMessage": {
                                             "type": "string"
                                         }
                                     }
@@ -629,9 +633,9 @@
                 }
             }
         },
-        "/queue-sync": {
+        "/scan-token": {
             "post": {
-                "summary": "Synchronizes the live queue.",
+                "summary": "Scan a token.",
                 "tags": [
                     "Customer"
                 ],
@@ -647,7 +651,7 @@
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "auth_key": {
+                                    "token_no": {
                                         "type": "string"
                                     }
                                 }
@@ -664,42 +668,578 @@
                                     "type": "object",
                                     "properties": {
                                         "ResponseCode": {
+                                            "type": "integer"
+                                        },
+                                        "message": {
                                             "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/complete-token": {
+            "post": {
+                "summary": "Completes process of a token from in process",
+                "tags": [
+                    "Customer"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "token_no": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "ResponseCode": {
+                                            "type": "integer"
+                                        },
+                                        "ResponseMessage": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/adjust-token-position": {
+            "post": {
+                "summary": "Adjusts token position in live queue.",
+                "tags": [
+                    "Customer"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "token_no": {
+                                        "type": "string"
+                                    },
+                                    "in_at": {
+                                        "type": "integer"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "ResponseCode": {
+                                            "type": "integer"
+                                        },
+                                        "ResponseMessage": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/add-customer-type": {
+            "post": {
+                "summary": "Adds customer type.",
+                "tags": [
+                    "Customer"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "customer_type_name": {
+                                        "type": "string"
+                                    },
+                                    "customer_type_color": {
+                                        "type": "string"
+                                    },
+                                    "customer_type_text_color": {
+                                        "type": "string"
+                                    },
+                                    "customer_type_priority": {
+                                        "type": "integer"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "ResponseCode": {
+                                            "type": "integer"
+                                        },
+                                        "ResponseMessage": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/delete-customer-type": {
+            "post": {
+                "summary": "Deletes customer type.",
+                "tags": [
+                    "Customer"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "customer_type_id": {
+                                        "type": "integer"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "ResponseCode": {
+                                            "type": "integer"
+                                        },
+                                        "ResponseMessage": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/update-customer-type": {
+            "post": {
+                "summary": "Updates customer type.",
+                "tags": [
+                    "Customer"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "customer_type_id": {
+                                        "type": "integer"
+                                    },
+                                    "customer_type_name": {
+                                        "type": "string"
+                                    },
+                                    "customer_type_color": {
+                                        "type": "string"
+                                    },
+                                    "customer_type_text_color": {
+                                        "type": "string"
+                                    },
+                                    "customer_type_priority": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "ResponseCode": {
+                                            "type": "integer"
+                                        },
+                                        "ResponseMessage": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/get-today-report": {
+            "get": {
+                "summary": "Retrieves todays report.",
+                "tags": [
+                    "Reporting"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "object",
+                                            "properties": {
+                                                "ResponseCode": {
+                                                    "type": "string"
+                                                },
+                                                "TodayTokens": {
+                                                    "type": "string"
+                                                },
+                                                "TodayScannedTokens": {
+                                                    "type": "string"
+                                                },
+                                                "TodayWaitingTokens": {
+                                                    "type": "string"
+                                                },
+                                                "TodayCancelledTokens": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/get-this-week-report": {
+            "get": {
+                "summary": "Retrieves last 7 days report.",
+                "tags": [
+                    "Reporting"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "ResponseCode": {
+                                            "type": "integer"
                                         },
                                         "message": {
                                             "type": "array",
                                             "items": {
                                                 "type": "object",
                                                 "properties": {
-                                                    "live_queue_id": {
+                                                    "report_date": {
                                                         "type": "string"
                                                     },
-                                                    "live_queue_position": {
-                                                        "type": "string"
+                                                    "today_tokens_count": {
+                                                        "type": "integer"
                                                     },
-                                                    "customer_name": {
-                                                        "type": "string"
+                                                    "today_scanned_tokens": {
+                                                        "type": "integer"
                                                     },
-                                                    "customer_mobile": {
-                                                        "type": "string"
-                                                    },
-                                                    "no_of_person": {
-                                                        "type": "string"
-                                                    },
-                                                    "token_no": {
-                                                        "type": "string"
-                                                    },
-                                                    "qr_b64": {
-                                                        "type": "string"
-                                                    },
-                                                    "customer_type_color": {
-                                                        "type": "string"
-                                                    },
-                                                    "customer_type_text_color": {
-                                                        "type": "string"
+                                                    "today_expired_tokens": {
+                                                        "type": "integer"
                                                     }
                                                 }
                                             }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/get-last-week-report": {
+            "get": {
+                "summary": "Retrieves last week report.",
+                "tags": [
+                    "Reporting"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "ResponseCode": {
+                                            "type": "integer"
+                                        },
+                                        "message": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "report_date": {
+                                                        "type": "string"
+                                                    },
+                                                    "today_tokens_count": {
+                                                        "type": "integer"
+                                                    },
+                                                    "today_scanned_tokens": {
+                                                        "type": "integer"
+                                                    },
+                                                    "today_expired_tokens": {
+                                                        "type": "integer"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/get-this-month-report": {
+            "get": {
+                "summary": "Retrieves last 30 days report.",
+                "tags": [
+                    "Reporting"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "ResponseCode": {
+                                            "type": "integer"
+                                        },
+                                        "message": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "report_date": {
+                                                        "type": "string"
+                                                    },
+                                                    "today_tokens_count": {
+                                                        "type": "integer"
+                                                    },
+                                                    "today_scanned_tokens": {
+                                                        "type": "integer"
+                                                    },
+                                                    "today_expired_tokens": {
+                                                        "type": "integer"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/get-this-year-report": {
+            "get": {
+                "summary": "Retrieves last 12 months report.",
+                "tags": [
+                    "Reporting"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "ResponseCode": {
+                                            "type": "integer"
+                                        },
+                                        "message": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "report_month": {
+                                                        "type": "string"
+                                                    },
+                                                    "report_year": {
+                                                        "type": "string"
+                                                    },
+                                                    "today_tokens_count": {
+                                                        "type": "integer"
+                                                    },
+                                                    "today_scanned_tokens": {
+                                                        "type": "integer"
+                                                    },
+                                                    "today_expired_tokens": {
+                                                        "type": "integer"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin-login": {
+            "post": {
+                "summary": "Route for logging in admin.",
+                "tags": [
+                    "Admin"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "username": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "ResponseCode": {
+                                            "type": "integer"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "username": {
+                                            "type": "string"
                                         }
                                     }
                                 }
