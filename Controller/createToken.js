@@ -8,8 +8,8 @@ require("dotenv").config();
 const createToken = asyncHandler(async function (req, res) {
   const { name, mobile, no_of_person, customer_type_id } = req.body;
 
-  if (!mobile) {
-    return res.status(400).json({ ResponseCode: 0, message: "Mobile is required" });
+  if (!(name, mobile, no_of_person, customer_type_id)) {
+    return res.status(400).json({ ResponseCode: 0, message: "All fields are required" });
   }
 
   Connection.query(

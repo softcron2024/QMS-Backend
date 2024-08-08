@@ -81,7 +81,7 @@ const adjustTokenPosition = asyncHandler(async (req, res) => {
         }
 
         // Handle case where no results are found
-        if (!results || results.length === 0) {
+        if (!results || !Array.isArray(results) || results.length === 0) {
             return res.status(404).json({ ResponseCode: 0, message: "No tokens found." });
         }
 
