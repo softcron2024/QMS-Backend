@@ -1,109 +1,41 @@
 const mysql = require("mysql2");
 const cron = require('node-cron');
+require("dotenv").config();
 
-require("dotenv").config()
+let Connection;
 
-const Connection = mysql.createConnection({
-  host: process.env.SQL_HOST,
-  user: process.env.SQL_USER,
-  password: process.env.SQL_PASSWORD,
-  database: process.env.SQL_DATABASE,
-});
+function handleDisconnect() {
+  Connection = mysql.createConnection({
+    host: process.env.SQL_HOST,
+    user: process.env.SQL_USER,
+    password: process.env.SQL_PASSWORD,
+    database: process.env.SQL_DATABASE,
+  });
 
-// const Connection = mysql.createConnection({
-//   host: "localhost",
-//   user: "root",
-//   password: "1234",
-//   database: "qms",
-// });
+  Connection.connect((err) => {
+    if (err) {
+      setTimeout(handleDisconnect, 2000); // Retry after 2 seconds
+    }
+  });
 
-Connection.connect((err) => {
-  if (err) {
-    console.error("Error connecting to the database:", err);
-    return;
-  }
-  console.log("Connected to the MySQL database.");
-});
+  Connection.on('error', (err) => {
+    if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+      handleDisconnect();
+    } else {
+      throw err; // Other errors should not be ignored
+    }
+  });
+}
 
+handleDisconnect(); 
+
+// Schedule your cron jobs here as before
 cron.schedule('* * * * * *', () => {
   Connection.query('CALL SPexpiretoken()', (error, results, fields) => {
     if (error) {
-      let message = "Error generating token, Try Again!";
-      let responseCode = 0;
-
-      switch (err.code) {
-        // Database errors
-        case 'ER_BAD_DB_ERROR':
-          message = "Database not found.";
-          break;
-        case 'ER_ACCESS_DENIED_ERROR':
-          message = "Access denied.";
-          break;
-        case 'PROTOCOL_CONNECTION_LOST':
-          message = "Database connection was closed.";
-          break;
-        case 'ER_CON_COUNT_ERROR':
-          message = "Database has too many connections.";
-          break;
-        case 'ER_PARSE_ERROR':
-          message = "SQL query syntax error.";
-          break;
-        case 'ER_NO_SUCH_TABLE':
-          message = "Table does not exist.";
-          break;
-        case 'ER_LOCK_WAIT_TIMEOUT':
-          message = "Lock wait timeout exceeded; try restarting transaction.";
-          break;
-        case 'ER_QUERY_TIMEOUT':
-          message = "Query execution was interrupted.";
-          break;
-
-        // Network errors
-        case 'ECONNREFUSED':
-          message = "Database connection was refused.";
-          break;
-        case 'ETIMEDOUT':
-          message = "Database connection timed out.";
-          break;
-        case 'EHOSTUNREACH':
-          message = "Database host is unreachable.";
-          break;
-        case 'ENETUNREACH':
-          message = "Network is unreachable.";
-          break;
-        case 'ECONNRESET':
-          message = "Connection was reset.";
-          break;
-        case 'ENOTFOUND':
-          message = "Database host not found.";
-          break;
-
-        // Application errors
-        case 'ERR_INVALID_ARG_TYPE':
-          message = "Invalid argument type provided.";
-          break;
-        case 'ERR_INVALID_CALLBACK':
-          message = "Invalid callback function provided.";
-          break;
-        case 'ERR_HTTP_HEADERS_SENT':
-          message = "Cannot send headers after they are sent to the client.";
-          break;
-
-        default:
-          message = "An unexpected error occurred. Please try again later.";
-      }
-
-      return res.status(500).json({ ResponseCode: responseCode, message });
+      return;
     }
   });
 });
-
-// cron.schedule('* * * * * *', () => {
-//   Connection.query("SELECT token_no FROM create_token WHERE is_active = 1 AND activity_status = 1 LIMIT 10", (error, results, fields) => {
-//     if (error) throw error;
-//     console.log(results);
-//   }
-// );
-// });
 
 module.exports = Connection;

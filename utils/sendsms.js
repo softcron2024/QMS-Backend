@@ -15,7 +15,6 @@ const sendsms = async (name, mobile) => {
         });
 
     } catch (smsError) {
-        console.log(smsError);
         res.status(500).json("Error sending sms")
     }
 }

@@ -6,7 +6,7 @@ const generateQRCode = async (data) => {
       const url = await QRCode.toDataURL(data);
       return url
     } catch (err) {
-      console.error('Error generating QR Code:', err);
+      return err
     }
   };
   

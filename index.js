@@ -38,8 +38,6 @@ const swaggerDocument = JSON.parse(fs.readFileSync('./swagger.json', 'utf8'));
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-const PORT = 8000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-  console.log(`Swagger UI available at http://localhost:${PORT}/api-docs`);
-});
+const PORT = process.env.PORT || 8000;
+
+app.listen(PORT);

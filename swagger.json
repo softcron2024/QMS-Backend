@@ -12,7 +12,7 @@
         },
         {
             "url": "https://api.yourdomain.com",
-            "description": "Production server"
+            "description": "Production server domain"
         }
     ],
     "paths": {

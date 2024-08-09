@@ -85,9 +85,6 @@ const adjustTokenPosition = asyncHandler(async (req, res) => {
             return res.status(404).json({ ResponseCode: 0, message: "No tokens found." });
         }
 
-        console.log(results);
-        
-
         return res.status(200).json({  message: results[0][0] });
     });
 });

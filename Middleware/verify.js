@@ -33,7 +33,6 @@ const verify = asynchandler(async (req, res, next) => {
       res.status(500).json({ message: error })
     }
   } catch (error) {
-    console.error(error); // Log the error for debugging purposes
     return res.status(500).json({ message: "Something went wrong" });
   }
 });

@@ -25,6 +25,8 @@ async function handleLogin(req, res) {
     try {
         Connection.query(userQuery, [username], async (err, results) => {
             if (err) {
+                console.log(err);
+                
                 let message = "Error finding user, Try again";
                 let responseCode = 0;
 
@@ -107,6 +109,8 @@ async function handleLogin(req, res) {
                 const query = "CALL SPadminlogin(?,?)";
                 Connection.query(query, [username, user.password], (err, results) => {
                     if (err) {
+                        console.log(err);
+                        
                         let message = "Error logging in user, Try again";
                         let responseCode = 0;
 
